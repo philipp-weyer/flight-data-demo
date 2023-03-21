@@ -1,0 +1,50 @@
+[
+  {
+    $match: {
+      $expr: {
+        $and: [
+          {
+            $eq: [
+              "$route_id",
+              ObjectId(
+                "56e9b39b732b6122f8782e0c"
+              ),
+            ],
+          },
+          { $lte: ["$startDate", new Date()] },
+          {
+            $gte: [
+              "$startDate",
+              {
+                $dateSubtract: {
+                  startDate: new Date(),
+                  amount: 30,
+                  unit: "day",
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    $set: {
+      duration: {
+        $dateDiff: {
+          startDate: "$startDate",
+          endDate: "$endDate",
+          unit: "minute",
+        },
+      },
+    },
+  },
+  {
+    $group: {
+      _id: null,
+      averageDuration: {
+        $avg: "$duration",
+      },
+    },
+  },
+]

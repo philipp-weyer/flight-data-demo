@@ -1,0 +1,36 @@
+[
+  {
+    $match:
+      /**
+       * query: The query in MQL.
+       */
+      {
+        continent: "EU",
+        type: "large_airport",
+      },
+  },
+  {
+    $sort:
+      /**
+       * Provide any number of field/order pairs.
+       */
+      {
+        elevation_ft: -1,
+      },
+  },
+  {
+    $set:
+      /**
+       * field: The field name
+       * expression: The expression.
+       */
+      {
+        elevation_m: {
+          $multiply: [
+            "$elevation_ft",
+            (12 * 2.54) / 100,
+          ],
+        },
+      },
+  },
+]

@@ -1,0 +1,27 @@
+[
+  {
+    $set:
+      /**
+       * field: The field name
+       * expression: The expression.
+       */
+      {
+        duration: {
+          $dateDiff: {
+            startDate: "$startDate",
+            endDate: "$endDate",
+            unit: "minute",
+          },
+        },
+      },
+  },
+  {
+    $sort:
+      /**
+       * Provide any number of field/order pairs.
+       */
+      {
+        duration: -1,
+      },
+  },
+]
