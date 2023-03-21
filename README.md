@@ -8,6 +8,7 @@ __Demonstrates some of the MongoDB Atlas Data Platform features, using a flight 
 The goal of this repo is to be a simple starting place for Atlas that demonstrates some data platform features, everything based on a very basic flight data set.
 
 These capabilities are namely:
+
 __1. Aggregation Framework - Working with and Transforming Data__
 
 __2. Triggers - Reacting to Changes and Building Event-Driven Architectures__
