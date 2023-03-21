@@ -1,0 +1,5 @@
+certifi==2022.12.7
+dnspython==2.3.0
+geographiclib==2.0
+geopy==2.3.0
+pymongo==4.3.3
