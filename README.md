@@ -9,7 +9,9 @@ The goal of this repo is to be a simple starting place for Atlas that demonstrat
 
 These capabilities are namely:
 __1. Aggregation Framework - Working with and Transforming Data__
+
 __2. Triggers - Reacting to Changes and Building Event-Driven Architectures__
+
 __3. Charts - Visualising Data Directly in MongoDB Atlas__
 
 ---
