@@ -6,7 +6,7 @@ import geopy.distance
 import pymongo
 import random
 
-conn = open('./connection.txt', 'r').read()
+conn = open('../connection.txt', 'r').read()
 client = pymongo.MongoClient(conn, tlsCAFile=certifi.where())
 db = client.flights
 

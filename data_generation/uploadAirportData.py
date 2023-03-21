@@ -4,7 +4,7 @@ import certifi
 import json
 import pymongo
 
-conn = open('./connection.txt', 'r').read()
+conn = open('../connection.txt', 'r').read()
 client = pymongo.MongoClient(conn, tlsCAFile=certifi.where())
 db = client.flights
 collection = db.airports
