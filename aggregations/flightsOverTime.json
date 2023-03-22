@@ -1,0 +1,106 @@
+[
+  {
+    $group:
+      /**
+       * _id: The id of the group.
+       * fieldN: The first field name.
+       */
+      {
+        _id: {
+          $dateTrunc: {
+            date: "$startDate",
+            unit: "hour",
+          },
+        },
+      },
+  },
+  {
+    $sort:
+      /**
+       * Provide any number of field/order pairs.
+       */
+      {
+        _id: 1,
+      },
+  },
+  {
+    $lookup:
+      /**
+       * from: The target collection.
+       * localField: The local join field.
+       * foreignField: The target join field.
+       * as: The name for the results.
+       * pipeline: Optional pipeline to run on the foreign collection.
+       * let: Optional variables to use in the pipeline field stages.
+       */
+      {
+        from: "history",
+        let: {
+          start: "$_id",
+        },
+        pipeline: [
+          {
+            $set: {
+              startHour: {
+                $dateTrunc: {
+                  date: "$startDate",
+                  unit: "hour",
+                },
+              },
+            },
+          },
+          {
+            $match: {
+              $expr: {
+                $and: [
+                  {
+                    $lte: [
+                      "$startHour",
+                      "$$start",
+                    ],
+                  },
+                  {
+                    $or: [
+                      {
+                        $gte: [
+                          "$endDate",
+                          "$$start",
+                        ],
+                      },
+                      {
+                        $eq: [
+                          "$endDate",
+                          undefined,
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          },
+          {
+            $group: {
+              _id: null,
+              count: {
+                $sum: 1,
+              },
+            },
+          },
+        ],
+        as: "flights",
+      },
+  },
+  {
+    $set:
+      /**
+       * field: The field name
+       * expression: The expression.
+       */
+      {
+        flights: {
+          $arrayElemAt: ["$flights.count", 0],
+        },
+      },
+  },
+]
