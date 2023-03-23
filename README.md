@@ -74,8 +74,9 @@ A couple of simple aggregation pipeline examples have been included in this repo
 * __```airportsByElevation.json```__ runs on the __airports__ collection. It filters the airports by continent and type, before sorting them by elevation and calculating an elevation in metres, from the elevation in feet.
 * __```flightsByDuration.json```__ runs on the __history__ collection. It takes all of the flights in the history and calculates a duration from the start and end dates in the documents. Based on this calculated field, the results are then sorted to yield the longest flight present in the database.
 * __```averageDuration30Days.json```__ runs on the __history__ collection. It uses the $expr operator to match on multiple conditions. A specific route id and a start date between now and 30 days ago. The route_id will have to be replaced to fit an actual route that has been referenced in the __history__ collection.
+* __```flightsOverTime.json```__ runs on the __history__ collection. It uses the $lookup operator to find, for every hour in the database, all the flights where start and end date lay between this point in time to evaluate how many flights are in the air at any given point in time.
 
-The aggregation pipelines can be tested directly in the Atlas interface. For this, navigate to your cluster and click __Browse Collections__. Navigate to your database and collection and select the __Aggregation__ tab on the right. When pressing on __Create New__ > __Pipline from Text__, you can paste the contents from your aggregation pipeline file and analyse the results.
+The aggregation pipelines can be tested directly in the Atlas interface. For this, navigate to your cluster and click __Browse Collections__. Navigate to your database and collection and select the __Aggregation__ tab on the right. When pressing on __Create New__ > __Pipeline from Text__, you can paste the contents from your aggregation pipeline file and analyse the results.
 
 ---
 ## Triggers
